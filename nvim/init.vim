@@ -12,7 +12,6 @@ if filereadable(expand("$HOME/.config/nvim/functions.vim"))
 endif
 
 " Basic Config
-
 syntax on
 filetype plugin indent on
 
@@ -43,17 +42,10 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " Color and UI
-if $LIGHT_SHELL
-  " Light
-  let g:seoul256_background = 255
-  colo seoul256-light
-  set background=light
-else
-  " Dark
-  let g:seoul256_background = 234
-  colo seoul256
-  set background=dark
-endif
+try
+  colorscheme nord
+catch
+endtry
 
 set colorcolumn=80
 set ruler
@@ -74,13 +66,12 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 let g:jsx_ext_required = 0
 
 let test#strategy = "neovim"
-" let test#strategy = "vimux"
 
-" let g:ycm_rust_src_path = '/usr/local/src'
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_complete_in_strings = 1
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
+let g:ycm_rust_src_path = '/usr/local/src'
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_server_python_interpreter = '/usr/local/bin/python2'
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
@@ -97,7 +88,6 @@ set scrolloff=3
 let g:elm_format_autosave = 1
 
 " Autocmds
-
 augroup vimrcEx
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,fdoc,html,javascript,sass,cucumber set ai sw=2 sts=2 et
@@ -110,13 +100,36 @@ augroup END
 
 autocmd FileType gitcommit setlocal spell textwidth=72
 
+" NERDTree
+""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeShowHidden = 1
+let g:NERDSpaceDelims = 1
+let g:NERDTreeWinSize = 35
+let g:NERDTreeWinPos = "right"
+autocmd vimenter * NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Jump to the main window.
+autocmd VimEnter * wincmd p
+nmap ,n :NERDTreeFind<CR>
+nmap ,m :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""
 " Mappings
 
 let mapleader = "\<Space>"
 
+" ACK & Silversearcher
+""""""""""""""""""""""""""""""""""""""""
+let g:ackprg = 'ag --vimgrep --nogroup --nocolor --column'
+let g:ackhighlight = 1
+let g:ack_qhandler = "botright copen 30"
+let g:ack_apply_qmappings = 1
+nmap <leader><C-F> :Ack!<space>
+
+
 map <Leader>w :w!<CR>
-map <Leader>q :bd<CR>
 map <Leader>Q :q<CR>
+map <Leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 map <Leader>f  :FZF<CR>
 map <Leader>vi :tabe ~/.config/nvim/init.vim<CR>
 map <Leader>vs :source ~/.config/nvim/init.vim<CR>
@@ -129,7 +142,6 @@ map <Leader>n :call RenameFile()<cr>
 map <Leader>p :call AddDebugger("o")<cr>
 map <Leader>P :call AddDebugger("O")<cr>
 map <Leader>d :call RemoveAllDebuggers()<cr>
-
 
 " vim copy to clipboard Gittler magic
 vnoremap <C-c> "*y

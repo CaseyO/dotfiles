@@ -19,10 +19,14 @@ Plug 'tpope/vim-surround'
 Plug 'flazz/vim-colorschemes'
 Plug 'reedes/vim-colors-pencil'
 Plug 'junegunn/seoul256.vim'
+Plug 'arcticicestudio/nord-vim'
 
 "Fuzzy Finder
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+
+"Ack.vim
+Plug 'mileszs/ack.vim'
 
 "Elixir
 Plug 'elixir-lang/vim-elixir'
@@ -30,12 +34,14 @@ Plug 'elixir-lang/vim-elixir'
 "Ruby/Rails Testing
 Plug 'benmills/vimux'
 Plug 'janko-m/vim-test'
+" Procore linter
+Plug 'ngmy/vim-rubocop'
 
 "File Utils
 Plug 'pbrisbin/vim-mkdir'
 
 "Debugging
-Plug 'mcasper/vim-infer-debugger'
+" Plug 'mcasper/vim-infer-debugger'
 
 "Puppet
 Plug 'rodjek/vim-puppet'
@@ -58,7 +64,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 "Status Bar
-" Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
+
+" NerdTree
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+
 
 "Searching
 Plug 'rking/ag.vim'
